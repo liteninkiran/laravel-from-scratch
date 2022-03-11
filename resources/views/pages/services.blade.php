@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Services</h1>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis illo ipsa voluptas ipsum? Modi sapiente minima eius perspiciatis nam quae repudiandae sint, id porro alias, neque provident illo adipisci ab.</p>
+    <h1>{{ $title }}</h1>
+    @if (count($services) > 0)
+        @foreach ($services as $service)
+            <li>{{ $service }}</li>
+        @endforeach
+    @endif
 @endsection
