@@ -18,7 +18,7 @@ class PagesController extends Controller
 
     public function services() {
         $data = [
-            'title' => 'Servixes',
+            'title' => 'Services',
             'services' => [
                 'Web Design',
                 'SEO',
