@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         User::factory(5)->create();
 
         Post::unguard();
-        Post::factory(100)->create();
+        Post::factory(25)->create();
         Post::reguard();
 
     }

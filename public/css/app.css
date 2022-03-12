@@ -11286,4 +11286,9 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.btn-default {
+    background-color: white;
+    border-style: solid;
+    border-color: lightgrey;
+}
 

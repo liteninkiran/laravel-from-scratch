@@ -11,5 +11,9 @@
                 <small>{{ $post->created_at->diffForHumans() }}</small>
             </div>
         @endforeach
+        <div class="pagination-block">
+            {{-- {{ $posts->links('layouts.pagination') }} --}}
+            {{ $posts->links() }}
+        </div>
     @endif
 @endsection
