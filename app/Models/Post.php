@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+    protected $table = 'posts';
+
+    protected $primaryKey = 'id';
+
+    public $timestamps = true;
+
+    public $fillable = [
+        'title',
+        'body',
+    ];
 }
