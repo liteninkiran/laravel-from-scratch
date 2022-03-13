@@ -17,7 +17,7 @@
     {{-- Post Body --}}
     <div class="form-group mb-3">
         {{ Form::label('body', 'Body') }}
-        {{ Form::textarea('body', '', ['class' => 'form-control', 'placeholder' => 'Body', 'id' => 'editor']) }}
+        {{ Form::textarea('body', '', ['class' => 'form-control', 'id' => 'editor']) }}
     </div>
 
     {{-- Submit --}}

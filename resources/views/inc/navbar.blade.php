@@ -45,29 +45,17 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
+
                 <!-- Authentication Links -->
                 @guest
 
                     {{-- Login --}}
-                    @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                    @endif
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
 
                     {{-- Register --}}
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
+                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
 
                 @else
-
-                    {{-- Create Post --}}
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/posts/create">Create Post</a>
-                    </li>
 
                     {{-- User Menu --}}
                     <li class="nav-item dropdown">
@@ -79,6 +67,11 @@
 
                         {{-- Logout --}}
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                            {{-- Dashboard --}}
+                            <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                {{ __('Dashboard') }}
+                            </a>
 
                             {{-- Link --}}
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

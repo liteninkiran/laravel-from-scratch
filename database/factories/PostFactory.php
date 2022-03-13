@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\=Post>
@@ -16,6 +17,8 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $user = User::inRandomOrder()->first();
+
         $title = $this->faker->sentence(3, true);
         $paragraphs = $this->faker->paragraphs(rand(2, 6));
         $body = '';
@@ -28,6 +31,7 @@ class PostFactory extends Factory
         return [
             'title' => $title,
             'body' => $body,
+            'user_id' => $user->id,
             'created_at' => $created_at,
         ];
     }
