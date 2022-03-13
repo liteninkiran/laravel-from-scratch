@@ -16,12 +16,15 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
+// Auth routes
+Auth::routes();
+
+// Public routes
 Route::get('/', [PagesController::class, 'index'] );
 Route::get('/about', [PagesController::class, 'about'] );
 Route::get('/services', [PagesController::class, 'services'] );
 
+// Private routes
 Route::resource('/posts', PostsController::class);
-
-Auth::routes();
-
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
