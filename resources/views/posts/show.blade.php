@@ -14,8 +14,8 @@
     </div>
     <hr>
 
-    {{-- Created At --}}
-    <small>{{ $post->created_at->diffForHumans() }}</small>
+    {{-- Created By / At --}}
+    <small>Written by {{ $post->user->name }} {{ $post->created_at->diffForHumans() }}</small>
 
     <hr>
 
