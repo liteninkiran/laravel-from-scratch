@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
@@ -46,17 +47,28 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate inputs
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required',
+            'cover_image' => 'image|nullable|max:1999',
         ]);
 
+        // Create a new model
         $post = new Post();
+
+        // Set attributes
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         $post->user_id = auth()->user()->id;
+
+        // Upload cover image
+        $this->upload_image($request, $post);
+
+        // Store post
         $post->save();
 
+        // Re-direct
         return redirect('/posts')->with('success', 'Post created successfully');
     }
 
@@ -94,15 +106,24 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        // Validate inputs
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required',
+            'cover_image' => 'image|nullable|max:1999',
         ]);
 
+        // Update attributes
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+
+        // Store new cover image
+        $this->upload_image($request, $post);
+
+        // Update post
         $post->save();
 
+        // Re-direct
         return redirect('/posts')->with('success', 'Post updated successfully');
     }
 
@@ -114,10 +135,55 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
+        // Check user is deleting their own post
         if (auth()->user()->id !== $post->user_id) {
             return redirect('/posts')->with('error', 'Unauthorised Access');
         }
+
+        // Delete the cover image from storage
+        if ($post->cover_image) {
+            Storage::delete('public/cover_images/' . $post->cover_image);
+        }
+
+        // Delete the post
         $post->delete();
+
+        // Re-direct
         return redirect('/posts')->with('success', 'Post deleted successfully');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param Post $post
+     * @return void
+     */
+    private function upload_image(Request $request, Post $post) {
+        if ($request->hasFile('cover_image')) {
+
+            // Store full name
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+
+            // Just file extension (e.g. jpg, gif, etc)
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+
+            // Filename without extension
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+
+            // Create unique filename
+            $filenameToStore = $filename . '_' . time() . '.' . $extension;
+
+            // Delete the cover image from storage
+            if ($post->cover_image) {
+                Storage::delete('public/cover_images/' . $post->cover_image);
+            }
+
+            // Upload and store path
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $filenameToStore);
+
+            // Save storage path
+            $post->cover_image = $filenameToStore;
+        }
     }
 }

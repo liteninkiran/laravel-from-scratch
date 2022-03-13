@@ -8,6 +8,13 @@
     {{-- Post Title --}}
     <h1>{{ $post->title }}</h1>
 
+    <hr>
+
+    {{-- Cover Image --}}
+    @if ($post->cover_image)
+        <img style="width: 100%;" src="/storage/cover_images/{{ $post->cover_image }}" class="mb-4">
+    @endif
+
     {{-- Post Body --}}
     <div>
         {!! $post->body !!}
@@ -16,15 +23,13 @@
     <hr>
 
     {{-- Created By / At --}}
-    <div class="mb-5 mt-5">
+    <div class="mb-5 mt-3">
         <small>Written by {{ $post->user->name }} {{ $post->created_at->diffForHumans() }}</small>
     </div>
 
     @auth
 
         @if(auth()->user()->id === $post->user_id)
-
-            <hr>
 
             {{-- Edit Post --}}
             <a href="/posts/{{ $post->id }}/edit" class="btn btn-default">Edit</a>
@@ -34,6 +39,10 @@
                 {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
                 {{ Form::hidden('_method', 'DELETE') }}
             {!! Form::close() !!}
+
+            <div class="mb-5">
+
+            </div>
 
         @endif
 
