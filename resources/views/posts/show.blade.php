@@ -8,4 +8,6 @@
     </div>
     <hr>
     <small>{{ $post->created_at->diffForHumans() }}</small>
+    <hr>
+    <a href="/posts/{{ $post->id }}/edit" class="btn btn-default">Edit</a>
 @endsection
