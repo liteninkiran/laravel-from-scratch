@@ -14,7 +14,7 @@
         {{-- Menu Links --}}
         <div class="collapse navbar-collapse" id="navbar">
 
-            {{-- Navigation --}}
+            {{-- LHS Links --}}
             <ul class="navbar-nav me-auto mb-2 mb-xl-0">
 
                 {{-- Home --}}
@@ -38,6 +38,17 @@
                 </li>
 
             </ul>
+
+            {{-- RHS Links --}}
+            <ul class="navbar-nav navbar-right">
+
+                {{-- Create Post --}}
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/posts/create">Create Post</a>
+                </li>
+
+            </ul>
+
         </div>
     </div>
 </nav>
